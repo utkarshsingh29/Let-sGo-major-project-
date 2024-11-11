@@ -42,6 +42,7 @@ main()
 
 async function main() {
     await mongoose.connect(dbUrl);
+    // await mongoose.connect(mongo_url);
 }
 
 app.set("view engine","ejs");
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname,"public")));
 
 const store=MongoStore.create({
   mongoUrl:dbUrl,
+    //  mongoUrl:mongo_url,
   crypto:{
    secret:process.env.SECRET,
   },
@@ -76,10 +78,10 @@ const sessionOptions={
 
 };
 
-// app.get("/", (req,res)=>{
-//   res.send("hi i am root");
-// }
-// );
+app.get("/", (req,res)=>{
+  res.redirect("/listings");
+}
+);
 
 
 app.use(session(sessionOptions));
